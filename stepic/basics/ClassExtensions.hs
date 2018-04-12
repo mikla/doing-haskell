@@ -43,9 +43,29 @@ ip = show a ++ show b ++ show c
 
 -- minBound, maxBound
 
-class SafeEnum a where
+-- fromEnum :: a -> Int
+-- toEnum :: Int -> a
+
+class (Enum a, Bounded a, Eq a) => SafeEnum a where
   ssucc :: a -> a
+
+  ssucc a | a == maxBound = minBound
+          | otherwise = succ a
+
   spred :: a -> a
+  spred a | a == minBound = maxBound
+          | otherwise = pred a
+
+instance SafeEnum Bool
+
+-- standard type classes
+
+-- Num
+-- Integral
+-- Fractional
+-- Floating
+-- RealFloat
 
 
-
+avg :: Int -> Int -> Int -> Double
+avg x y z = fromIntegral x / 3 + fromIntegral y / 3 + fromIntegral z / 3
