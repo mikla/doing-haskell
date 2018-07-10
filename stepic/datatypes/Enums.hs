@@ -1,6 +1,6 @@
 module Enums where
 
-data Bool1 = True | False
+data Bool1 = True1 | False1
 
 data B = T | F deriving (Show, Eq, Read, Enum)
 
@@ -49,12 +49,14 @@ cmp Info Info = EQ
 
 data Result = Fail | Success
 
+data SomeData = String
+
 doSomeWork :: SomeData -> (Result, Int)
 doSomeWork _ = (Success, 1)
 
 processData :: SomeData -> String
 processData d = case doSomeWork d of
   (Success, _) -> "Success"
-  (Fail, n) -> "Fail: " + show n
+  (Fail, n) -> "Fail: " ++ show n
 
 
