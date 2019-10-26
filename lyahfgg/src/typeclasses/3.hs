@@ -20,3 +20,19 @@ bmiTell w h
   | otherwise = "other"
   where
     bmi = h / w
+
+-- hh:mm:ssAM to 24h format
+timeConversion :: String -> String
+timeConversion s =
+  let hh = take 2 s
+      rest = take 6 $ drop 2 s
+      hours = read hh :: Int
+      hoursAdj
+        | s !! 8 == 'P' = if hours == 12 then hours else hours + 12
+        | (hours == 12) = 0
+        | otherwise = hours
+      hoursStr =
+        if hoursAdj < 10
+          then "0" ++ show hoursAdj
+          else show hoursAdj
+   in hoursStr ++ rest
